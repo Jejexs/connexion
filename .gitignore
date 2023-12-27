@@ -1,32 +1,72 @@
 # Dépendances
 /node_modules
+/front/node_modules
+/back/node_modules
 
 # Dossiers de build
 /dist
 /build
+/front/dist
+/front/build
+/back/dist
+/back/build
 
 # Fichiers de configuration et d'environnement locaux
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+/front/.env
+/front/.env.local
+/front/.env.development.local
+/front/.env.test.local
+/front/.env.production.local
+/back/.env
+/back/.env.local
+/back/.env.development.local
+/back/.env.test.local
+/back/.env.production.local
 
 # Fichiers de logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/front/npm-debug.log*
+/front/yarn-debug.log*
+/front/yarn-error.log*
+/back/npm-debug.log*
+/back/yarn-debug.log*
+/back/yarn-error.log*
 
 # Fichiers et dossiers de l'éditeur
 /.vscode
 /.idea
 *.swp
 *.swo
+/front/.vscode
+/front/.idea
+/front/*.swp
+/front/*.swo
+/back/.vscode
+/back/.idea
+/back/*.swp
+/back/*.swo
 
 # Dossiers de cache
 .cache
 /.parcel-cache
+/front/.cache
+/front/.parcel-cache
+/back/.cache
+/back/.parcel-cache
 
 # Autres fichiers et dossiers
 *.log
 .DS_Store
 Thumbs.db
+/front/*.log
+/front/.DS_Store
+/front/Thumbs.db
+/back/*.log
+/back/.DS_Store
+/back/Thumbs.db
