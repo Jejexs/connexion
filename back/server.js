@@ -1,11 +1,38 @@
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/auth');
+const cors = require('cors');
+require('./config/passport'); // Configuration de Passport
+require('dotenv').config();
+
+
 const app = express();
-const port = 3001; // Utilisez un port différent de celui du frontend
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(cors()); // Ajoutez cette ligne
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+
+// Configuration des sessions
+app.use(session({
+  secret: 'test',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Initialisation de Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Parseur de corps de requête
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Utilisation des routes d'authentification
+app.use('/auth', authRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur le port ${PORT}`);
 });
+``
