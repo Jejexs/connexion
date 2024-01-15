@@ -1,4 +1,6 @@
+// src/components/Login.jsx
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -6,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-
+  const { setIsAuthenticated } = useAuth(); // Ajouter cette ligne pour utiliser setIsAuthenticated
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,16 +20,23 @@ const Login = () => {
       });
       const data = await response.json();
 
-      console.log(data); // Ajout pour le débogage
+      console.log(data); // Pour le débogage
 
       if (response.ok) {
-        setMessage('Connexion réussie !');
+        const token = data.token; // Supposons que le token est renvoyé sous cette forme
+        localStorage.setItem('token', token); // Stocker le token
+        console.log("Token stocké:", localStorage.getItem('token')); // Vérification du stockage du token
+        
+        setIsAuthenticated(true); // Mettre à jour l'état d'authentification
         navigate('/profile'); // Redirige vers la page de profil
+        setMessage('Connexion réussie !');
       } else {
+        setIsAuthenticated(false); // Assurez-vous de réinitialiser l'authentification en cas d'échec
         setMessage(data.message || 'Identifiants incorrects.');
       }
     } catch (error) {
       console.error('Erreur lors de la requête:', error);
+      setIsAuthenticated(false); // Réinitialiser l'authentification en cas d'erreur réseau
       setMessage('Erreur réseau ou problème de serveur.');
     }
   };

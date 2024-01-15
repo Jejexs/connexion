@@ -1,15 +1,18 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const verifyToken = require('./middleware/verifyToken'); // Assurez-vous que le chemin est correct
-const db = require('./config/database'); // Votre configuration de base de données
+const verifyToken = require('../middlewares/verifyToken');
+const db = require('../config/database'); // Votre configuration de base de données
+const router = express.Router();
 
-const app = express();
+
 
 // ... (autres configurations et routes)
 
 // Route de profil protégée
-app.get('/api/profile', verifyToken, (req, res) => {
+router.get('/profile', verifyToken, (req, res) => {
+  console.log("Route /profile atteinte");
   try {
+    console.log("Token pour vérification:", req.token, "Clé secrète:", process.env.JWT_SECRET);
     const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
     const userId = decoded.userId;
 
@@ -26,6 +29,9 @@ app.get('/api/profile', verifyToken, (req, res) => {
       }
     });
   } catch (error) {
+    console.error("Erreur de vérification du token:", error);
     res.status(401).json({ message: "Token invalide ou expiré" });
   }
 });
+
+module.exports = router;

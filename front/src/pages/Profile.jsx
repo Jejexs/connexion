@@ -1,12 +1,15 @@
 // src/pages/Profile.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Profile = () => {
     const [profileInfo, setProfileInfo] = useState(null);
+
+    console.log(profileInfo);
   
     useEffect(() => {
       const fetchProfile = async () => {
         const token = localStorage.getItem('token'); // Ou la manière dont vous stockez le token
+        console.log("Token récupéré:", token);
         const response = await fetch('http://localhost:3000/api/profile', {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -17,7 +20,7 @@ const Profile = () => {
           const data = await response.json();
           setProfileInfo(data);
         } else {
-          // Gérer les erreurs ici
+          console.error("Erreur lors de la récupération du profil:", response.status, response.statusText);
         }
       };
   
