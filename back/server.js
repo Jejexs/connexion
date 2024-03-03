@@ -5,38 +5,33 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const cors = require('cors');
-require('./config/passport'); // Configuration de Passport
+require('./config/passport'); // Assurez-vous que ce chemin est correct
 require('dotenv').config();
-
 
 const app = express();
 
-app.use(cors()); // Ajoutez cette ligne
+// Configurez CORS pour accepter les requêtes de votre client React
+app.use(cors({
+  origin: 'http://localhost:5173', // Autorisez l'origine de votre client React
+  credentials: true, // Autorisez les credentials (cookies, sessions)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Autorisez ces méthodes
+}));
 
 
-// Configuration des sessions
 app.use(session({
-  secret: 'test',
+  secret: 'secretKey', // Utilisez une clé secrète plus sécurisée
   resave: false,
   saveUninitialized: false
 }));
 
-// Initialisation de Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Parseur de corps de requête
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Utilisation des routes d'authentification
 app.use('/auth', authRoutes);
-
-// Utilisation des routes utilisateur
 app.use('/api', userRoutes);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
-``
