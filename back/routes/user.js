@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../middlewares/verifyToken');
-const User = require('../models/User');
+const User = require('../models/User'); // Assurez-vous que ce chemin est correct et que le modèle User inclut les nouveaux champs
 const router = express.Router();
 
 // Route de profil protégée
@@ -10,10 +10,15 @@ router.get('/profile', verifyToken, async (req, res) => {
   try {
     const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
     console.log("Token decoded:", decoded); // Log pour vérifier le token décodé
-    const user = await User.findByPk(decoded.userId, { attributes: ['username', 'email'] });
+    
+    // Incluez jeuFavori, joueurFavori, et equipeFavorite dans les attributs demandés
+    const user = await User.findByPk(decoded.userId, { 
+      attributes: ['username', 'email', 'jeuFavori', 'joueurFavori', 'equipeFavorite'] 
+    });
+
     console.log("User found for profile:", user); // Log pour vérifier l'utilisateur trouvé
     if (user) {
-      res.json(user);
+      res.json(user); // Cela renverra les données de l'utilisateur, y compris jeuFavori, joueurFavori, et equipeFavorite
     } else {
       res.status(404).json({ message: "Utilisateur non trouvé" });
     }

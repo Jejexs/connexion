@@ -37,14 +37,21 @@ const generateUserToken = (req, res) => {
 
 // Route d'inscription
 router.post('/signup', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, equipeFavorite, joueurFavori, jeuFavori } = req.body; // Inclure les nouveaux champs ici
   try {
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
       return res.status(400).json({ message: "Cette adresse email est déjà utilisée." });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ username, email, password: hashedPassword });
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      equipeFavorite, // Assurez-vous que ces champs existent dans votre modèle Sequelize
+      joueurFavori,   
+      jeuFavori      
+    });
 
     // Génération du token pour le nouvel utilisateur
     const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '6h' });
@@ -56,6 +63,7 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ message: "Erreur serveur" });
   }
 });
+
 
 // Route de connexion avec Passport
 router.post('/login', passport.authenticate('local', { session: false }), generateUserToken);
