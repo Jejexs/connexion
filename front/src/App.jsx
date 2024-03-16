@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './pages/HomePage';
+import AllMatches from './pages/AllMatches';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/matches" element={<AllMatches />} />
           <Route path="/profile" element={
             <PrivateRoute>
               <Profile />

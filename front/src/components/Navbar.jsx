@@ -33,6 +33,7 @@ const Navbar = () => {
           {isAuthenticated && (
             <>
               <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/profile">Profil</Link>
+              <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/matches">Matchs</Link>
               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Déconnexion</button>
             </>
           )}

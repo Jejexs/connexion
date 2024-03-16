@@ -36,5 +36,22 @@ router.get('/past', async (req, res) => {
     }
 });
 
+// Route pour récupérer tous les matchs
+router.get('/all', async (req, res) => {
+    try {
+        const response = await axios.get('https://api.pandascore.co/matches', {
+            headers: {
+                Authorization: `Bearer ${PANDASCORE_BEARER_TOKEN}`,
+                Accept: 'application/json'
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching all matches:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 
 module.exports = router;
