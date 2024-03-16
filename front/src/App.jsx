@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -16,12 +17,12 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<div>Accueil</div>} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={
             <PrivateRoute>
               <Profile />
             </PrivateRoute>
-          }/>
+          } />
         </Routes>
       </Router>
     </AuthProvider>

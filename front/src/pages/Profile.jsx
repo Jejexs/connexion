@@ -39,17 +39,19 @@ const Profile = () => {
   }, [navigate]);
 
   if (!profileInfo) {
-    return <div>Chargement du profil...</div>;
+    return <div className="text-center">Chargement du profil...</div>;
   }
 
   return (
-    <div>
-      <h1>Profil</h1>
-      <p>Nom d'utilisateur: {profileInfo.username}</p>
-      <p>Email: {profileInfo.email}</p>
-      <p>Jeu favori: {profileInfo.jeuFavori || 'Non spécifié'}</p>
-      <p>Joueur favori: {profileInfo.joueurFavori || 'Non spécifié'}</p>
-      <p>Équipe favorite: {profileInfo.equipeFavorite || 'Non spécifié'}</p>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <h1 className="text-2xl font-semibold text-blue-600 mb-6">Profil</h1>
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <p className="text-lg mb-2"><strong>Nom d'utilisateur:</strong> {profileInfo.username}</p>
+        <p className="text-lg mb-2"><strong>Email:</strong> {profileInfo.email}</p>
+        <p className="text-lg mb-2"><strong>Jeu favori:</strong> {profileInfo.gameFav || 'Non spécifié'}</p>
+        <p className="text-lg mb-2"><strong>Joueur favori:</strong> {profileInfo.playerFav || 'Non spécifié'}</p>
+        <p className="text-lg"><strong>Équipe favorite:</strong> {profileInfo.teamFav || 'Non spécifié'}</p>
+      </div>
     </div>
   );
 };

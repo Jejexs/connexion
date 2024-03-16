@@ -37,7 +37,7 @@ const generateUserToken = (req, res) => {
 
 // Route d'inscription
 router.post('/signup', async (req, res) => {
-  const { username, email, password, equipeFavorite, joueurFavori, jeuFavori } = req.body; // Inclure les nouveaux champs ici
+  const { username, email, password, teamFav, playerFav, gameFav } = req.body; // Inclure les nouveaux champs ici
   try {
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
@@ -48,9 +48,9 @@ router.post('/signup', async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      equipeFavorite, // Assurez-vous que ces champs existent dans votre modèle Sequelize
-      joueurFavori,   
-      jeuFavori      
+      teamFav, // Assurez-vous que ces champs existent dans votre modèle Sequelize
+      playerFav,
+      gameFav
     });
 
     // Génération du token pour le nouvel utilisateur

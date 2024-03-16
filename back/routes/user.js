@@ -10,15 +10,15 @@ router.get('/profile', verifyToken, async (req, res) => {
   try {
     const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
     console.log("Token decoded:", decoded); // Log pour vérifier le token décodé
-    
-    // Incluez jeuFavori, joueurFavori, et equipeFavorite dans les attributs demandés
-    const user = await User.findByPk(decoded.userId, { 
-      attributes: ['username', 'email', 'jeuFavori', 'joueurFavori', 'equipeFavorite'] 
+
+    // Incluez gameFav, playerFav, et teamFav dans les attributs demandés
+    const user = await User.findByPk(decoded.userId, {
+      attributes: ['username', 'email', 'gameFav', 'playerFav', 'teamFav']
     });
 
     console.log("User found for profile:", user); // Log pour vérifier l'utilisateur trouvé
     if (user) {
-      res.json(user); // Cela renverra les données de l'utilisateur, y compris jeuFavori, joueurFavori, et equipeFavorite
+      res.json(user); // Cela renverra les données de l'utilisateur, y compris gameFav, playerFav, et teamFav
     } else {
       res.status(404).json({ message: "Utilisateur non trouvé" });
     }

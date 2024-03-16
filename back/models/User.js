@@ -3,18 +3,18 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-class User extends Model {}
+class User extends Model { }
 
 User.init({
   username: DataTypes.STRING,
   email: DataTypes.STRING,
   password: DataTypes.STRING,
-  equipeFavorite: DataTypes.STRING,
-  joueurFavori: DataTypes.STRING,
-  jeuFavori: DataTypes.STRING,
+  teamFav: DataTypes.STRING,
+  playerFav: DataTypes.STRING,
+  gameFav: DataTypes.STRING,
 }, {
   sequelize,
-  modelName: 'user',
+  modelName: 'Users',
   timestamps: true,
 });
 
