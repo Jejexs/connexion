@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
+import homeIcon from '../assets/accueil.png';
 const Navbar = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -13,33 +13,42 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const isActive = (path) => {
+    return location.pathname === path ? 'bg-white text-black' : '';
+  };
+
   return (
-    <nav className="bg-gray-800 text-white p-4">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4">
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {/* Icône du menu burger */}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-          </button>
-        </div>
-        <div className={`md:flex ${isMenuOpen ? 'flex' : 'hidden'} flex-col md:flex-row md:items-center gap-4`}>
-          <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/">Accueil</Link>
-          {!isAuthenticated && (
+    <div className="fixed inset-x-0 bottom-0 mb-5 mx-5 flex justify-center">
+      <nav className="text-white h-20 rounded-full shadow-xl shadow-white/30 max-w-screen-md w-full border border-gray-200 border-opacity-25" style={{ boxShadow: '0 0 15px white', border: '1px solid rgba(255, 255, 255, 0.2)', background: '#18122B' }}>
+        <div className="flex justify-around items-center w-full h-full text-sm">
+          <Link to="/" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
+            <img src={homeIcon} alt="Accueil" className="w-6 h-6" /> Accueil
+          </Link>
+          {!isAuthenticated ? (
             <>
-              <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/signup">Inscription</Link>
-              <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/login">Connexion</Link>
+              <Link to="/signup" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/signup')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
+                <img src={homeIcon} alt="Inscription" className="w-6 h-6" /> Inscription
+              </Link>
+              <Link to="/login" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/login')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
+                <img src={homeIcon} alt="Connexion" className="w-6 h-6" /> Connexion
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/profile" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/profile')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
+                <img src={homeIcon} alt="Profil" className="w-6 h-6" /> Profil
+              </Link>
+              <Link to="/matches" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/matches')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
+                <img src={homeIcon} alt="Matchs" className="w-6 h-6" /> Matchs
+              </Link>
+              <button onClick={handleLogout} className="flex flex-col items-center justify-center w-full h-full bg-red-500 hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out hover:shadow-md hover:shadow-white/50">
+                <img src={homeIcon} alt="Déconnexion" className="w-6 h-6" /> Déconnexion
+              </button>
             </>
           )}
-          {isAuthenticated && (
-            <>
-              <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/profile">Profil</Link>
-              <Link className="hover:bg-gray-700 px-3 py-2 rounded" to="/matches">Matchs</Link>
-              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogout}>Déconnexion</button>
-            </>
-          )}
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 

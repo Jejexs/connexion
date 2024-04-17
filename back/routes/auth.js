@@ -3,41 +3,45 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Assurez-vous que ce chemin vers le modèle User est correct
+const { body, validationResult } = require('express-validator');
+const User = require('../models/User');
 
 const router = express.Router();
 
-// Configuration de Passport pour utiliser la LocalStrategy avec email et mot de passe
 passport.use(new LocalStrategy({
-  usernameField: 'email', // Utilise 'email' au lieu du 'username' par défaut
-  session: false // Nous utilisons les JWT, donc pas besoin de sessions
+  usernameField: 'email',
+  session: false
 }, async (email, password, done) => {
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return done(null, false, { message: 'Identifiants incorrects.' });
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return done(null, false, { message: 'Identifiants incorrects.' });
     }
-
     return done(null, user);
   } catch (error) {
     return done(error);
   }
 }));
 
-// Middleware pour générer un token pour un utilisateur
 const generateUserToken = (req, res) => {
   const token = jwt.sign({ userId: req.user.id }, process.env.JWT_SECRET, { expiresIn: '6h' });
   res.json({ message: 'Login réussi', token });
 };
 
-// Route d'inscription
-router.post('/signup', async (req, res) => {
-  const { username, email, password, teamFav, playerFav, gameFav } = req.body; // Inclure les nouveaux champs ici
+router.post('/signup', [
+  body('email').isEmail(),
+  body('password').isLength({ min: 6 }),
+  body('username').not().isEmpty()
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { username, email, password, teamFav, playerFav, gameFav } = req.body;
   try {
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
@@ -45,18 +49,9 @@ router.post('/signup', async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
-      username,
-      email,
-      password: hashedPassword,
-      teamFav, // Assurez-vous que ces champs existent dans votre modèle Sequelize
-      playerFav,
-      gameFav
+      username, email, password: hashedPassword, teamFav, playerFav, gameFav
     });
-
-    // Génération du token pour le nouvel utilisateur
     const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '6h' });
-
-    // Envoi du token dans la réponse
     res.json({ message: 'Inscription réussie', token });
   } catch (error) {
     console.error("Signup error:", error);
@@ -64,8 +59,6 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-
-// Route de connexion avec Passport
 router.post('/login', passport.authenticate('local', { session: false }), generateUserToken);
 
 module.exports = router;

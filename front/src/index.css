@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%, 100% 50%;
+    background-size: 100% 100%, 100% 100%;
+  }
+  50% {
+    background-position: 50% 100%, 50% 0%;
+    background-size: 120% 120%, 120% 120%;
+  }
+  100% {
+    background-position: 0% 50%, 100% 50%;
+    background-size: 100% 100%, 100% 100%;
+  }
+}
+
+/* .animate-gradient {
+  background: 
+  radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%),
+  radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%), 
+  radial-gradient(circle at 0% 100%, #4f0c79, #000000);
+    
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  animation: gradientBG 5s ease infinite;
+  height: 100vh;
+  width: 100%;
+} */
+
+.animate-gradient {
+  background: 
+    radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%),
+    radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%),
+    radial-gradient(circle at 100% 100%, #4f0c79, #000000);
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+}
+
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc; /* Couleur de bordure par défaut */
+  color: #666; /* Couleur de texte par défaut */
+}
+
+.circle.completed {
+  border-color: #4CAF50; /* Vert */
+  color: #4CAF50;
+}
+
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #ccc;
+}
+
+.line.completed {
+  background-color: #4CAF50; /* Vert */
+}
+
+.spinner {
+  font-size: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.circle, .line {
+  transition: all 0.5s ease;
+}
+
+button.disabled, button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #888;
+}
+
