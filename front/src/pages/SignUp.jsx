@@ -2,20 +2,25 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
+import SelectGameStep from '../components/SelectGameStep';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [teamFav, setTeamFav] = useState('Équipe 1');
-    const [gameFav, setGameFav] = useState('Jeu 1');
+    const [gameFav, setGameFav] = useState('dota-2');
     const [step, setStep] = useState(1);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { setIsAuthenticated } = useContext(AuthContext);
 
-    const jeux = ["Jeu 1", "Jeu 2", "Jeu 3"];
+    const jeux = [
+      { name: "Dota 2", slug: "dota-2", logo: 'src/assets/dota_logo.png' },
+      { name: "League of Legends", slug: "league-of-legends", logo: 'src/assets/lol_logo.png' },
+      { name: "Counter-Strike 2", slug: "cs-2", logo: 'src/assets/cs_logo.png' }
+    ];
     const equipes = ["Équipe 1", "Équipe 2", "Équipe 3"];
 
     const handleSubmit = async (e) => {
@@ -63,41 +68,29 @@ const SignUp = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="flex w-full max-w-md mb-4 justify-around items-center">
-                {renderStepIndicator(1)}
-                <div className={`line ${step > 1 ? 'completed' : ''}`}></div>
-                {renderStepIndicator(2)}
-                <div className={`line ${step > 2 ? 'completed' : ''}`}></div>
-                {renderStepIndicator(3)}
-            </div>
-            <form onSubmit={handleSubmit} className="w-full max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8">
-                {loading && <FaSpinner className="spinner" />}
-                {!loading && (
-          <>
-            {step === 1 && (
-              <>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Jeu Favori
-                  </label>
-                  <select className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                          value={gameFav} onChange={(e) => setGameFav(e.target.value)}>
-                    {jeux.map(jeu => <option key={jeu} value={jeu}>{jeu}</option>)}
-                  </select>
-                </div>
-                <div className="flex items-center justify-between">
-                  <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" 
-                          disabled={step === 1} onClick={() => setStep(step - 1)}>
-                    Précédent
-                  </button>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={() => setStep(2)}>
-                    Suivant
-                  </button>
-                </div>
-              </>
-            )}
-            {step === 2 && (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+          <div className="flex w-full max-w-md mb-4 justify-around items-center">
+              {renderStepIndicator(1)}
+              <div className={`line ${step > 1 ? 'completed' : ''}`}></div>
+              {renderStepIndicator(2)}
+              <div className={`line ${step > 2 ? 'completed' : ''}`}></div>
+              {renderStepIndicator(3)}
+          </div>
+          <form onSubmit={handleSubmit} className="w-full max-w-md rounded px-8 pt-6 pb-8">
+              {loading && <FaSpinner className="spinner" />}
+              {!loading && (
+                <>
+                  {step === 1 && (
+                    <SelectGameStep 
+                        gameFav={gameFav} 
+                        setGameFav={setGameFav} 
+                        jeux={jeux} 
+                        onNext={() => setStep(2)} 
+                        onPrevious={() => setStep(step - 1)}
+                        isFirstStep={step === 1}
+                    />
+                  )}
+                  {step === 2 && (
               <>
                 <div className="mb-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">

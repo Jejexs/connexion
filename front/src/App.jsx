@@ -9,7 +9,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './pages/HomePage';
 import AllMatches from './pages/AllMatches';
-import './index.css'; // Assurez-vous d'importer votre fichier CSS ici
+import './index.css';
 
 function App() {
   return (

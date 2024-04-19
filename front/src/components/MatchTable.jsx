@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // Import des logos des jeux
 import dotaLogo from '../assets/dota_logo.png';
-import csLogo from '../assets/cs_logo.svg';
+import csLogo from '../assets/cs_logo.png';
 import lolLogo from '../assets/lol_logo.png';
 
 const MatchTable = ({ matches }) => {
