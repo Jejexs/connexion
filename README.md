@@ -24,7 +24,26 @@ npm install
 node server.js
 ```
 
-Ces commandes vous permettront d'accéder à la page d'accueil. Notez qu'il est nécessaire d'avoir une clé API de PandaScore, même si rien ne sera visible sans elle.
+Ces commandes vous permettront d'accéder à la page d'accueil. 
+Notez qu'il est nécessaire d'avoir une clé API de PandaScore, même si rien ne sera visible sans elle.
+
+### Configuration de la Clé API PandaScore
+
+Pour utiliser les fonctionnalités liées à PandaScore dans ce projet, vous devez configurer votre clé API personnelle.
+
+Créez un fichier .env à la racine du dossier back.
+
+Ouvrez ce fichier avec un éditeur de texte et ajoutez la ligne suivante :
+
+```
+PANDASCORE_TOKEN="VOTRE_CLEF_API_PANDASCORE"
+```
+
+Remplacez VOTRE_CLEF_API_PANDASCORE par votre clé API personnelle obtenue de PandaScore.
+
+Sauvegardez le fichier .env. Cette clé sera automatiquement utilisée par le projet pour toutes les requêtes vers les services de PandaScore.
+
+Assurez-vous de ne pas divulguer publiquement votre clé API pour éviter toute utilisation non autorisée.
 
 ### Configuration Supplémentaire
 
@@ -92,7 +111,26 @@ npm install
 node server.js
 ```
 
-These commands will allow you to access the homepage. Please note that a PandaScore API key is required, although nothing will be visible without it.
+These commands will allow you to access the homepage. 
+Please note that a PandaScore API key is required, although nothing will be visible without it.
+
+### Configuring the PandaScore API Key
+
+To use features related to PandaScore in this project, you need to set up your personal API key.
+
+Create a .env file at the root of the back directory.
+
+Open this file with a text editor and add the following line:
+
+```
+PANDASCORE_TOKEN="YOUR_PANDASCORE_API_KEY"
+```
+
+Replace YOUR_PANDASCORE_API_KEY with your personal API key obtained from PandaScore.
+
+Save the .env file. This key will automatically be used by the project for all requests to PandaScore services.
+
+Make sure not to publicly disclose your API key to prevent unauthorized use.
 
 ### Additional Configuration
 
