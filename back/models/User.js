@@ -12,6 +12,17 @@ User.init({
   teamFav: DataTypes.STRING,
   playerFav: DataTypes.STRING,
   gameFav: DataTypes.STRING,
+  // Ajout des nouvelles colonnes
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  isNewsletter: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
 }, {
   sequelize,
   modelName: 'Users',

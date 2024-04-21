@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const matchesRoute = require('./routes/api/matches');
+const teamsRouter = require('./routes/api/teams');
+
 const cors = require('cors');
 require('./config/passport'); // Assurez-vous que ce chemin est correct
 require('dotenv').config();
@@ -32,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api/matches', matchesRoute);
+app.use('/api/teams', teamsRouter);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
