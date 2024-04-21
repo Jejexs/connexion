@@ -6,7 +6,7 @@ Prérequis : Ouvrir deux terminaux - un pour le serveur front (front-end) et un 
 
 ### Première Étape : Configuration du Serveur Front
 
-Accédez à votre terminal dans votre IDE et initialisez le serveur frontal :
+Accédez à votre terminal dans votre IDE et initialisez le serveur front :
 
 ```
 cd front
