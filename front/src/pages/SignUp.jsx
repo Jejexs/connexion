@@ -86,7 +86,9 @@ const SignUp = () => {
       <div className="flex w-full max-w-md mb-4 justify-around items-center">
         {Array.from({ length: 3 }, (_, i) => (
           <React.Fragment key={i}>
-            <div className={`circle ${step > i + 1 ? 'completed' : ''}`}>{i + 1}</div>
+            <div className={`circle ${step > i + 1 ? 'completed' : ''}`}>
+              {step > i + 1 ? <FaCheckCircle /> : i + 1}
+            </div>
             {i < 2 && <div className={`line ${step > i + 1 ? 'completed' : ''}`}></div>}
           </React.Fragment>
         ))}

@@ -4,8 +4,10 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+
 const matchesRoute = require('./routes/api/matches');
 const teamsRouter = require('./routes/api/teams');
+const leagueOfLegendsRoutes = require('./routes/api/leagueoflegends');
 
 const cors = require('cors');
 require('./config/passport'); // Assurez-vous que ce chemin est correct
@@ -35,6 +37,7 @@ app.use('/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api/matches', matchesRoute);
 app.use('/api/teams', teamsRouter);
+app.use('/api/leagueoflegends', leagueOfLegendsRoutes);
 
 
 const PORT = process.env.PORT || 3000;
