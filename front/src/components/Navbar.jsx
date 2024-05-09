@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 mb-5 mx-5 flex justify-center">
+    <div className="fixed inset-x-0 bottom-0 mb-5 mx-5 flex justify-center z-50">
       <nav className="text-white h-20 rounded-full shadow-xl shadow-white/30 max-w-screen-md w-full border border-gray-200 border-opacity-25" style={{ boxShadow: '0 0 15px white', border: '1px solid rgba(255, 255, 255, 0.2)', background: '#18122B' }}>
         <div className="flex justify-around items-center w-full h-full text-sm">
           <Link to="/" className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ease-in-out px-3 rounded-full ${isActive('/')} hover:bg-white hover:text-black hover:shadow-md hover:shadow-white/50`}>
