@@ -30,7 +30,7 @@ function HomePage() {
     const gameTitles = {
         lolUpcoming: "League of Legends",
         csgoUpcoming: "Counter Strike",
-        dotaUpcoming: "Dota 2"
+        dota2Upcoming: "Dota 2"
     };
 
     const formatDate = (dateString) => {
@@ -43,12 +43,12 @@ function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-8 text-white">
             {Object.entries(matches).map(([key, matchList]) => (
                 <div key={key} className="mb-8">
-                    <h2 className="text-xl font-semibold mb-1">{gameTitles[key]}</h2>
+                    <h2 className="text-2xl font-medium mb-1">{gameTitles[key]}</h2>
                     <hr className="border-white mb-4" />
                     <div className="space-y-4">
                         {matchList.map(match => (
                             <div key={match.id} className="p-3">
-                                <p className="text-sm">{formatDate(match.begin_at)}</p>
+                                <p className="text-sm py-2">{formatDate(match.begin_at)}</p>
                                 <MatchDisplay match={match} />
                             </div>
                         ))}
