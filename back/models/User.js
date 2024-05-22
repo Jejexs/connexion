@@ -12,7 +12,6 @@ User.init({
   teamFav: DataTypes.STRING,
   playerFav: DataTypes.STRING,
   gameFav: DataTypes.STRING,
-  // Ajout des nouvelles colonnes
   isAdmin: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
