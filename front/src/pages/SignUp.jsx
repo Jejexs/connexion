@@ -94,7 +94,7 @@ const SignUp = () => {
         ))}
       </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md rounded px-8 pt-6 pb-8">
-        {loading && <FaSpinner className="spinner" />}
+        {loading && <FaSpinner className="spinner text-white" />}
         {!loading && (
           <>
             {step === 1 && (
@@ -119,7 +119,7 @@ const SignUp = () => {
             {step === 3 && (
               <>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                     Email
                   </label>
                   <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}
@@ -127,7 +127,7 @@ const SignUp = () => {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                     Username
                   </label>
                   <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}
@@ -135,7 +135,7 @@ const SignUp = () => {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                     Password
                   </label>
                   <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}

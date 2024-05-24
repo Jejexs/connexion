@@ -14,7 +14,7 @@ const SelectTeamStep = ({ teamFav, setTeamFav, equipes, onNext, onPrevious }) =>
 
     return (
         <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-4 text-center">Choisissez votre équipe favorite</h3>
+            <h3 className="text-lg text-white font-semibold mb-4 text-center">Choisissez votre équipe favorite</h3>
             <input
                 type="text"
                 placeholder="Rechercher une équipe..."
