@@ -8,13 +8,16 @@ function MatchDisplay({ match }) {
 
     const displayImageOrPlaceholder = (image_url, teamName) => (
         image_url ?
-        <img src={image_url} alt={teamName} className="w-14 h-14 object-contain" /> :
-        <div className="w-10 h-10 bg-purple-500 flex items-center justify-center text-white text-xl font-bold rounded-full">
-            {teamName[0]}
-        </div>
+            <img src={image_url} alt={teamName} className="w-14 h-14 object-contain" /> :
+            <div className="w-10 h-10 bg-purple-500 flex items-center justify-center text-white text-xl font-bold rounded-full">
+                {teamName ? teamName[0] : '?'}
+            </div>
     );
 
     const isMatchUpcoming = match.status === "not_started";
+
+    const opponent1 = match.opponents[0]?.opponent || {};
+    const opponent2 = match.opponents[1]?.opponent || {};
 
     return (
         <div className="relative rounded-xl shadow-md border border-white border-opacity-50 p-3 flex items-center justify-between" style={{
@@ -22,8 +25,8 @@ function MatchDisplay({ match }) {
             boxShadow: '0 0 8px rgba(255, 255, 255, 0.5)'
         }}>
             <div className="flex flex-col items-center w-1/4">
-                {displayImageOrPlaceholder(match.opponents[0].opponent.image_url, match.opponents[0].opponent.name)}
-                <span className="text-xs text-white truncate w-full text-center mt-1">{match.opponents[0].opponent.name}</span>
+                {displayImageOrPlaceholder(opponent1.image_url, opponent1.name)}
+                <span className="text-xs text-white truncate w-full text-center mt-1">{opponent1.name || 'Unknown'}</span>
             </div>
             <div className="flex flex-col items-center w-1/2">
                 <div className="bg-[#cffafe] text-black text-xs rounded-full px-2 py-1 mb-1">
@@ -39,8 +42,8 @@ function MatchDisplay({ match }) {
                 </div>
             </div>
             <div className="flex flex-col items-center w-1/4">
-                {displayImageOrPlaceholder(match.opponents[1].opponent.image_url, match.opponents[1].opponent.name)}
-                <span className="text-xs text-white truncate w-full text-center mt-1">{match.opponents[1].opponent.name}</span>
+                {displayImageOrPlaceholder(opponent2.image_url, opponent2.name)}
+                <span className="text-xs text-white truncate w-full text-center mt-1">{opponent2.name || 'Unknown'}</span>
             </div>
         </div>
     );
