@@ -13,7 +13,7 @@ function HomePage() {
         const fetchMatches = (game) => {
             return axios.get(`http://localhost:3000/api/matches/${game}/upcoming?limit=2`)
                 .then(response => ({ game, data: response.data }))
-                .catch(error => console.error(`Erreur lors de la récupération des matchs à venir pour ${game}:`, error));
+                .catch(error => console.error(` Erreur lors de la récupération des matchs à venir pour ${game}:`, error));
         };
 
         const requests = games.map(game => fetchMatches(game));
