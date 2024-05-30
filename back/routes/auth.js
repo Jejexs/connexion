@@ -32,9 +32,13 @@ passport.use(new LocalStrategy({
 }));
 
 router.post('/signup', [
-  body('email').isEmail(),
-  body('password').isLength({ min: 6 }),
-  body('username').not().isEmpty()
+  body('email').isEmail().withMessage('L\'email doit être valide.'),
+  body('password').isLength({ min: 8 }).withMessage('Le mot de passe doit contenir au moins 8 caractères.')
+    .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins un chiffre.')
+    .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins une lettre minuscule.')
+    .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins une lettre majuscule.')
+    .matches(/[\W]/).withMessage('Le mot de passe doit contenir au moins un caractère spécial.'),
+  body('username').not().isEmpty().withMessage('Le nom d\'utilisateur ne peut pas être vide.')
 ], async (req, res) => {
   console.log('Début du processus d\'inscription');
   const errors = validationResult(req);
@@ -42,7 +46,7 @@ router.post('/signup', [
     console.log('Erreurs de validation:', errors.array());
     return res.status(400).json({ errors: errors.array() });
   }
-  const { username, email, password, teamFav, playerFav, gameFav } = req.body;
+  const { username, email, password, teamFav, playerFav, gameFav, isNewsletter } = req.body;
   console.log(`Inscription de l'utilisateur : ${username}`);
   try {
     const userExists = await User.findOne({ where: { email } });
@@ -52,7 +56,7 @@ router.post('/signup', [
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
-      username, email, password: hashedPassword, teamFav, playerFav, gameFav
+      username, email, password: hashedPassword, teamFav, playerFav, gameFav, isNewsletter: isNewsletter ? 1 : 0
     });
     console.log(`Nouvel utilisateur créé : ${newUser.id}`);
     const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '6h' });

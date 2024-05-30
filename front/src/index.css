@@ -211,3 +211,30 @@ button:disabled {
   cursor: not-allowed;
   background-color: #888;
 }
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: white rgba(255, 255, 255, 0);
+}
+
+body, html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+body::-webkit-scrollbar, html::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}

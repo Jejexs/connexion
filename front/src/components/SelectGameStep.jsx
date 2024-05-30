@@ -9,7 +9,7 @@ import bgLol from '../assets/bg-lol.png';
 const SelectGameStep = ({ gameFav, setGameFav, jeux, onNext, onPrevious, isFirstStep }) => {
 
     const getBackgroundImage = (slug) => {
-        switch(slug) {
+        switch (slug) {
             case 'cs-2': return bgCs;
             case 'dota-2': return bgDota2;
             case 'league-of-legends': return bgLol;
@@ -22,21 +22,22 @@ const SelectGameStep = ({ gameFav, setGameFav, jeux, onNext, onPrevious, isFirst
             <h3 className="text-lg font-semibold mb-4 text-white text-center">Choisissez votre jeu favori</h3>
             <div className="flex flex-col p-2.5">
                 {jeux.map(({ name, slug, logo }) => (
-                    <label key={slug} 
-                           className={`flex items-center justify-between p-0 m-1.5 rounded-lg border ${gameFav === slug ? 'bg-pink-200 border-pink-500' : 'border-gray-300'} relative cursor-pointer overflow-hidden`}
-                           style={{ 
-                               backgroundImage: `url(${getBackgroundImage(slug)})`,
-                               backgroundPosition: 'center',
-                               height: '80px'
-                           }}
-                        >
-                        <div className="flex items-center w-full h-full p-2.5 bg-opacity-75">
-                            <img src={logo} alt={`Logo de ${name}`} className="h-full mr-3" />
-                            <span className="flex-grow text-center text-white">{name}</span>
-                            <FaHeart className={`absolute right-2.5 top-2.5 ${gameFav === slug ? 'text-red-500' : 'text-gray-500'}`} />
-                            <input 
-                                type="radio" 
-                                name="gameFav" 
+                    <label key={slug}
+                        className={`flex items-center justify-between p-0 m-1.5 rounded-lg border ${gameFav === slug ? ' shadow-white' : 'border-gray-300'} relative cursor-pointer overflow-hidden transition duration-300`}
+                        style={{
+                            backgroundImage: `url(${getBackgroundImage(slug)})`,
+                            backgroundPosition: 'center',
+                            height: '80px',
+                            boxShadow: gameFav === slug ? '0 0 10px 2px rgba(255, 255, 255, 0.7)' : 'none',
+                        }}
+                    >
+                        <div className={`flex items-center w-full h-full p-2.5 transition duration-300 ${gameFav === slug ? 'bg-white bg-opacity-20' : 'bg-opacity-0'}`}>
+                            <img src={logo} alt={`Logo de ${name}`} className={`h-full mr-3 transition duration-300 ${gameFav === slug ? 'filter grayscale contrast-200 brightness-200' : ''}`} />
+                            <span className={`flex-grow text-center transition duration-300 ${gameFav === slug ? 'text-gray-200' : 'text-white'}`}>{name}</span>
+                            <FaHeart className={`absolute right-2.5 top-2.5 transition duration-300 ${gameFav === slug ? 'text-white' : 'text-gray-500'}`} />
+                            <input
+                                type="radio"
+                                name="gameFav"
                                 value={slug}
                                 checked={gameFav === slug}
                                 onChange={() => setGameFav(slug)}
@@ -46,10 +47,10 @@ const SelectGameStep = ({ gameFav, setGameFav, jeux, onNext, onPrevious, isFirst
                 ))}
             </div>
             <div className="flex justify-between mt-4">
-                <button onClick={onPrevious} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={isFirstStep}>
+                <button onClick={onPrevious} className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" disabled={isFirstStep}>
                     Précédent
                 </button>
-                <button onClick={onNext} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button onClick={onNext} className="bg-purple-700 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Suivant
                 </button>
             </div>
