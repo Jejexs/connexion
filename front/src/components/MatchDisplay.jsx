@@ -1,11 +1,27 @@
 import React from 'react';
 
+/**
+ * Composant pour afficher les informations d'un match.
+ * @param {Object} match - L'objet match contenant les détails du match.
+ * @param {boolean} isPast - Indique si le match est passé.
+ */
 function MatchDisplay({ match, isPast }) {
+    /**
+     * Formate une date pour n'afficher que l'heure.
+     * @param {string} dateString - La date à formater.
+     * @returns {string} - L'heure formatée en français.
+     */
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     };
 
+    /**
+     * Affiche l'image d'une équipe ou un espace réservé si l'image n'est pas disponible.
+     * @param {string} image_url - URL de l'image de l'équipe.
+     * @param {string} teamName - Nom de l'équipe.
+     * @returns {JSX.Element} - Élément JSX représentant l'image ou l'espace réservé.
+     */
     const displayImageOrPlaceholder = (image_url, teamName) => (
         image_url ?
             <img src={image_url} alt={teamName} className="w-14 h-14 object-contain" /> :
@@ -14,6 +30,7 @@ function MatchDisplay({ match, isPast }) {
             </div>
     );
 
+    // Récupération des informations des deux équipes
     const opponent1 = match.opponents[0]?.opponent || {};
     const opponent2 = match.opponents[1]?.opponent || {};
 

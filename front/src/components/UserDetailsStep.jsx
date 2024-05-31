@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Composant pour la saisie des détails utilisateur lors de l'inscription.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string} props.email - L'email de l'utilisateur.
+ * @param {Function} props.setEmail - Fonction pour définir l'email de l'utilisateur.
+ * @param {string} props.username - Le nom d'utilisateur.
+ * @param {Function} props.setUsername - Fonction pour définir le nom d'utilisateur.
+ * @param {string} props.password - Le mot de passe de l'utilisateur.
+ * @param {Function} props.setPassword - Fonction pour définir le mot de passe.
+ * @param {boolean} props.isNewsletter - Indique si l'utilisateur souhaite recevoir la newsletter.
+ * @param {Function} props.setIsNewsletter - Fonction pour définir l'abonnement à la newsletter.
+ * @param {Function} props.onNext - Fonction pour passer à l'étape suivante.
+ * @param {Function} props.onPrevious - Fonction pour revenir à l'étape précédente.
+ */
 const UserDetailsStep = ({ email, setEmail, username, setUsername, password, setPassword, isNewsletter, setIsNewsletter, onNext, onPrevious }) => {
     const [isEmailFocused, setIsEmailFocused] = useState(false);
     const [isUsernameFocused, setIsUsernameFocused] = useState(false);
@@ -15,6 +29,7 @@ const UserDetailsStep = ({ email, setEmail, username, setUsername, password, set
     });
 
     useEffect(() => {
+        // Met à jour les validations de mot de passe à chaque changement de mot de passe
         setPasswordValidations({
             length: password.length >= 8,
             number: /[0-9]/.test(password),

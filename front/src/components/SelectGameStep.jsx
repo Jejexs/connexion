@@ -6,8 +6,19 @@ import bgCs from '../assets/bg-cs.png';
 import bgDota2 from '../assets/bg-dota2.png';
 import bgLol from '../assets/bg-lol.png';
 
+/**
+ * Composant pour la sélection du jeu favori lors de l'inscription.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string} props.gameFav - Le jeu favori sélectionné.
+ * @param {Function} props.setGameFav - Fonction pour définir le jeu favori sélectionné.
+ * @param {Array} props.jeux - Liste des jeux disponibles.
+ * @param {Function} props.onNext - Fonction pour passer à l'étape suivante.
+ * @param {Function} props.onPrevious - Fonction pour revenir à l'étape précédente.
+ * @param {boolean} props.isFirstStep - Indique si cette étape est la première étape.
+ */
 const SelectGameStep = ({ gameFav, setGameFav, jeux, onNext, onPrevious, isFirstStep }) => {
 
+    // Fonction pour obtenir l'image de fond en fonction du jeu sélectionné
     const getBackgroundImage = (slug) => {
         switch (slug) {
             case 'cs-2': return bgCs;

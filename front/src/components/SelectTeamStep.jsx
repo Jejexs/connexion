@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import { FaHeart, FaSpinner, FaSearch } from 'react-icons/fa';
 
+/**
+ * Composant pour la sélection de l'équipe favorite lors de l'inscription.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {string} props.teamFav - L'équipe favorite sélectionnée.
+ * @param {Function} props.setTeamFav - Fonction pour définir l'équipe favorite sélectionnée.
+ * @param {Array} props.equipes - Liste des équipes disponibles.
+ * @param {Function} props.onNext - Fonction pour passer à l'étape suivante.
+ * @param {Function} props.onPrevious - Fonction pour revenir à l'étape précédente.
+ */
 const SelectTeamStep = ({ teamFav, setTeamFav, equipes, onNext, onPrevious }) => {
     const [search, setSearch] = useState('');
     const [isFocused, setIsFocused] = useState(false);
 
+    // Affiche un spinner si les équipes ne sont pas chargées
     if (!Array.isArray(equipes) || equipes.length === 0) {
         return <div className="text-center"><FaSpinner className="animate-spin text-white" /></div>;
     }
 
+    // Filtre les équipes en fonction de la recherche
     const filteredTeams = equipes.filter(team =>
         team && team.name && team.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    // Affiche l'image de l'équipe ou un placeholder si l'image n'est pas disponible
     const displayImageOrPlaceholder = (image_url, teamName) => (
         image_url ?
             <img src={image_url} alt={teamName} className="mx-auto mb-2" style={{ height: '50px' }} /> :
