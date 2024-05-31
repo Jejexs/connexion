@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { FaCheckCircle, FaSpinner } from 'react-icons/fa';
 import SelectGameStep from '../components/SelectGameStep';
@@ -103,7 +103,11 @@ const SignUp = () => {
         ))}
       </div>
       <form onSubmit={handleSubmit} className="w-full max-w-md rounded px-8 pt-6 pb-8">
-        {loading && <FaSpinner className="spinner text-white" />}
+        {loading && (
+          <div className="flex items-center justify-center">
+            <FaSpinner className="spinner text-white" />
+          </div>
+        )}
         {!loading && (
           <>
             {step === 1 && (
@@ -143,6 +147,12 @@ const SignUp = () => {
         )}
         {message && <p className="text-center text-red-500">{message}</p>}
       </form>
+      <div className="mt-4 text-center">
+        <Link to="/login" className="text-white text-sm relative group">
+          J'ai déjà un compte
+          <span className="block h-0.5 bg-white absolute bottom-0 -my-1 left-0 w-0 group-hover:w-full transition-all duration-300"></span>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -6,8 +6,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './pages/HomePage';
-import AllMatches from './pages/AllMatches';
-import Calendar from './pages/Calendar'; // Importez le nouveau composant Calendar
+import Calendar from './pages/Calendar';
 import Layout from './components/layout/Layout';
 import './index.css';
 
@@ -21,7 +20,6 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<HomePage />} />
-              <Route path="/matches" element={<AllMatches />} />
               <Route path="/calendar" element={<Calendar />} /> 
               <Route path="/profile" element={
                 <PrivateRoute>

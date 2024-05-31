@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 import MatchDisplay from '../components/MatchDisplay';
+import { useNavigate } from 'react-router-dom';
 
 const Calendar = () => {
     const [matches, setMatches] = useState([]);
-    const [selectedGame, setSelectedGame] = useState('league-of-legends');
+    const [selectedGame, setSelectedGame] = useState({ value: 'league-of-legends', label: 'League of Legends' });
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchMatches(selectedGame, selectedDate);
+        const checkAuth = () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("Aucun token trouvé, redirection vers la page de connexion.");
+                navigate('/login');
+            }
+        };
+        checkAuth();
+    }, [navigate]);
+
+    useEffect(() => {
+        fetchMatches(selectedGame.value, selectedDate);
     }, [selectedGame, selectedDate]);
 
     const fetchMatches = async (game, date) => {
@@ -19,7 +33,7 @@ const Calendar = () => {
             const response = await axios.get(`http://localhost:3000/api/matches/${game}/${apiEndpoint}`, {
                 params: {
                     date: formattedDate,
-                    limit: 20
+                    limit: 100
                 }
             });
             setMatches(response.data);
@@ -36,8 +50,8 @@ const Calendar = () => {
         return `${day}.${month}`;
     };
 
-    const handleGameChange = (e) => {
-        setSelectedGame(e.target.value);
+    const handleGameChange = (selectedOption) => {
+        setSelectedGame(selectedOption);
     };
 
     const handleDateChange = (days) => {
@@ -46,23 +60,80 @@ const Calendar = () => {
         setSelectedDate(newDate);
     };
 
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            borderColor: 'transparent',
+            boxShadow: 'none',
+            '&:hover': {
+                borderColor: 'transparent'
+            },
+            borderRadius: '10px', // Fully rounded corners for the control
+            padding: '0.5rem 1rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        }),
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: '#1F2937', // Dark background for better readability
+            borderRadius: '0 0 10px 10px', // Slightly rounded bottom corners
+            marginTop: '0',
+            padding: '0.5rem',
+            transition: 'opacity 0.2s ease-in-out'
+        }),
+        menuList: (provided) => ({
+            ...provided,
+            padding: '0'
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: '#FFFFFF',
+        }),
+        placeholder: (provided) => ({
+            ...provided,
+            color: '#D1D5DB',
+        }),
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            color: '#D1D5DB',
+            '&:hover': {
+                color: '#D1D5DB',
+            }
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected ? '#3B82F6' : 'transparent', // Blue background when selected
+            color: state.isSelected ? '#FFFFFF' : '#D1D5DB', // White text when selected
+            '&:hover': {
+                backgroundColor: '#3B82F6', // Blue background on hover
+                color: '#FFFFFF' // White text on hover
+            },
+            padding: '0.5rem 1rem',
+            borderRadius: '0' // No rounded corners for options
+        }),
+    };
+
+    const gameOptions = [
+        { value: 'league-of-legends', label: 'League of Legends' },
+        { value: 'cs-2', label: 'Counter-Strike 2' },
+        { value: 'dota-2', label: 'Dota 2' },
+    ];
+
     return (
         <div className="max-w-6xl mx-auto px-4 py-8 text-white">
             <div className="mb-4">
                 <label htmlFor="game-select" className="block text-sm font-medium text-gray-300">Sélectionnez un jeu :</label>
-                <div className="relative inline-block w-full sm:w-auto">
-                    <select
-                        id="game-select"
-                        value={selectedGame}
-                        onChange={handleGameChange}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-white bg-opacity-20 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none"
-                        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 20 20\' fill=\'%23333333\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M10 6a.75.75 0 01.53.22l4.25 4a.75.75 0 01-1.06 1.06L10 7.81 6.28 11.28a.75.75 0 01-1.06-1.06l4.25-4A.75.75 0 0110 6z\' clip-rule=\'evenodd\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.5rem center', backgroundSize: '1.5em 1.5em' }}
-                    >
-                        <option value="league-of-legends">League of Legends</option>
-                        <option value="cs-2">Counter-Strike 2</option>
-                        <option value="dota-2">Dota 2</option>
-                    </select>
-                </div>
+                <Select
+                    id="game-select"
+                    value={selectedGame}
+                    onChange={handleGameChange}
+                    options={gameOptions}
+                    styles={customStyles}
+                    className="mt-1 block w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    isSearchable={false}
+                />
             </div>
             <div className="flex justify-between mb-8">
                 {[...Array(6).keys()].map(i => (
@@ -79,7 +150,7 @@ const Calendar = () => {
             <div className="space-y-4">
                 {matches.length > 0 ? (
                     matches.map(match => (
-                        <div key={match.id} className="mb-4">
+                        <div key={match.id} className="mb-4 py-2">
                             <MatchDisplay match={match} isPast={selectedDate < new Date(new Date().setHours(0, 0, 0, 0))} />
                         </div>
                     ))

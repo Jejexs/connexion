@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 
 const Login = () => {
@@ -12,7 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuth(); 
+  const { setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,6 +99,12 @@ const Login = () => {
           </button>
         </div>
         {message && <p className="text-center text-red-500 text-xs mt-4">{message}</p>}
+        <div className="mt-4 text-center">
+          <Link to="/signup" className="text-white text-sm relative group">
+            Créer un compte
+            <span className="block h-0.5 bg-white absolute bottom-0 -my-1 left-0 w-0 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+        </div>
       </form>
     </div>
   );

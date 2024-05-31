@@ -131,18 +131,6 @@ body {
   }
 }
 
-/* .animate-gradient {
-  background: 
-  radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%),
-  radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%), 
-  radial-gradient(circle at 0% 100%, #4f0c79, #000000);
-    
-  background-size: 100% 100%, 100% 100%;
-  background-repeat: no-repeat;
-  animation: gradientBG 5s ease infinite;
-  height: 100vh;
-  width: 100%;
-} */
 
 .animate-gradient {
   background:
@@ -163,9 +151,7 @@ body {
   height: 30px;
   border-radius: 50%;
   border: 2px solid #ccc;
-  /* Couleur de bordure par défaut */
   color: #666;
-  /* Couleur de texte par défaut */
 }
 
 .circle.completed {

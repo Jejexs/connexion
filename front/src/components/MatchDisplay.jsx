@@ -18,10 +18,7 @@ function MatchDisplay({ match, isPast }) {
     const opponent2 = match.opponents[1]?.opponent || {};
 
     return (
-        <div className="relative rounded-xl shadow-md border border-white border-opacity-50 p-3 flex items-center justify-between" style={{
-            background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.5))',
-            boxShadow: '0 0 8px rgba(255, 255, 255, 0.5)'
-        }}>
+        <div className="relative rounded-xl shadow-md border border-white border-opacity-50 p-4 my-4 flex items-center justify-between bg-gradient-to-br from-white/30 to-black/50 transition-transform duration-300 transform hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]">
             <div className="flex flex-col items-center w-1/4">
                 {displayImageOrPlaceholder(opponent1.image_url, opponent1.name)}
                 <span className="text-xs text-white truncate w-full text-center mt-1">{opponent1.name || 'Unknown'}</span>
