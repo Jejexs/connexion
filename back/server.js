@@ -6,9 +6,8 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const matchesRoute = require('./routes/api/matches');
 const teamsRouter = require('./routes/api/teams');
-const leagueOfLegendsRoutes = require('./routes/api/leagueoflegends');
 const cors = require('cors');
-require('./config/passport'); // Assurez-vous que ce chemin est correct
+require('./config/passport');
 require('dotenv').config();
 
 const app = express();
@@ -20,24 +19,29 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Autorisez ces méthodes
 }));
 
+// Configuration de la session
 app.use(session({
-  secret: 'B^k5R&4cR7X%eEzYHs2uB#n8@UdG*mP^FzC@L@rXu5e&3S!@yT2QzE#^4@R6kCz',
-  resave: false,
-  saveUninitialized: false
+  secret: 'B^k5R&4cR7X%eEzYHs2uB#n8@UdG*mP^FzC@L@rXu5e&3S!@yT2QzE#^4@R6kCz', // Clé secrète pour signer les cookies de session
+  resave: false, // Ne pas sauvegarder la session si elle n'est pas modifiée
+  saveUninitialized: false // Ne pas créer de session tant qu'il n'y a pas de données
 }));
 
+// Initialisation de Passport.js pour la gestion de l'authentification
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Configuration du body-parser pour parser les requêtes entrantes en JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/auth', authRoutes);
-app.use('/api', userRoutes);
-app.use('/api/matches', matchesRoute);
-app.use('/api/teams', teamsRouter);
-app.use('/api/leagueoflegends', leagueOfLegendsRoutes);
+// Définition des routes de l'application
+app.use('/auth', authRoutes); // Routes d'authentification
+app.use('/api', userRoutes); // Routes pour les utilisateurs
+app.use('/api/matches', matchesRoute); // Routes pour les matchs
+app.use('/api/teams', teamsRouter); // Routes pour les équipes
 
-const PORT = process.env.PORT || 3000;
+// Démarrage du serveur
+const PORT = process.env.PORT || 3000; // Utilisation du port spécifié dans les variables d'environnement ou 3000 par défaut
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`Serveur démarré sur le port ${PORT}`); // Message de confirmation lorsque le serveur est démarré
 });

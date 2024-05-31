@@ -1,29 +1,40 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../middlewares/verifyToken');
-const User = require('../models/User'); // Assurez-vous que ce chemin est correct et que le modèle User inclut les nouveaux champs
+const User = require('../models/User');
 const router = express.Router();
 
 // Route de profil protégée
 router.get('/profile', verifyToken, async (req, res) => {
-  console.log("Profile access attempt with token:", req.token); // Log pour vérifier le token
-  try {
-    const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
-    console.log("Token decoded:", decoded); // Log pour vérifier le token décodé
+  // Log pour vérifier le token
+  console.log("Profile access attempt with token:", req.token);
 
+  try {
+    // Vérification et décodage du token JWT
+    const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
+    // Log pour vérifier le token décodé
+    console.log("Token decoded:", decoded);
+
+    // Recherche de l'utilisateur dans la base de données en utilisant l'ID décodé du token
     // Incluez gameFav, playerFav, et teamFav dans les attributs demandés
     const user = await User.findByPk(decoded.userId, {
       attributes: ['username', 'email', 'gameFav', 'playerFav', 'teamFav']
     });
 
-    console.log("User found for profile:", user); // Log pour vérifier l'utilisateur trouvé
+    // Log pour vérifier l'utilisateur trouvé
+    console.log("User found for profile:", user);
+
     if (user) {
-      res.json(user); // Cela renverra les données de l'utilisateur, y compris gameFav, playerFav, et teamFav
+      // Si l'utilisateur est trouvé, renvoyer les données de l'utilisateur, y compris gameFav, playerFav, et teamFav
+      res.json(user);
     } else {
+      // Si l'utilisateur n'est pas trouvé, renvoyer une erreur 404
       res.status(404).json({ message: "Utilisateur non trouvé" });
     }
   } catch (error) {
-    console.error("Profile access error:", error); // Log pour les erreurs
+    // Log pour les erreurs
+    console.error("Profile access error:", error);
+    // Si le token est invalide ou expiré, renvoyer une erreur 401
     res.status(401).json({ message: "Token invalide ou expiré" });
   }
 });
