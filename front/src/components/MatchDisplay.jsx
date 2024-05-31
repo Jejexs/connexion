@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MatchDisplay({ match }) {
+function MatchDisplay({ match, isPast }) {
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -13,8 +13,6 @@ function MatchDisplay({ match }) {
                 {teamName ? teamName[0] : '?'}
             </div>
     );
-
-    const isMatchUpcoming = match.status === "not_started";
 
     const opponent1 = match.opponents[0]?.opponent || {};
     const opponent2 = match.opponents[1]?.opponent || {};
@@ -32,7 +30,7 @@ function MatchDisplay({ match }) {
                 <div className="bg-[#cffafe] text-black text-xs rounded-full px-2 py-1 mb-1">
                     {match.league.name}
                 </div>
-                {!isMatchUpcoming && (
+                {isPast && (
                     <div className="text-lg font-semibold my-1">
                         {match.results.map(result => result.score).join('-')}
                     </div>

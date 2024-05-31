@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MatchDisplay from '../components/MatchDisplay';
+
 function HomePage() {
     const [matches, setMatches] = useState({
-        lolUpcoming: [],
-        csgoUpcoming: [],
-        dotaUpcoming: [],
+        'league-of-legends': [],
+        'cs-2': [],
+        'dota-2': [],
     });
 
     useEffect(() => {
-        const games = ['lol', 'csgo', 'dota2'];
+        const games = ['league-of-legends', 'cs-2', 'dota-2'];
         const fetchMatches = (game) => {
             return axios.get(`http://localhost:3000/api/matches/${game}/upcoming?limit=2`)
                 .then(response => ({ game, data: response.data }))
-                .catch(error => console.error(` Erreur lors de la récupération des matchs à venir pour ${game}:`, error));
+                .catch(error => console.error(`Erreur lors de la récupération des matchs à venir pour ${game}:`, error));
         };
 
         const requests = games.map(game => fetchMatches(game));
-        
+
         Promise.all(requests).then(results => {
             const newMatches = {};
             results.forEach(({ game, data }) => {
-                newMatches[`${game}Upcoming`] = data;
+                newMatches[game] = data;
             });
             setMatches(newMatches);
         });
     }, []);
 
     const gameTitles = {
-        lolUpcoming: "League of Legends",
-        csgoUpcoming: "Counter Strike",
-        dota2Upcoming: "Dota 2"
+        'league-of-legends': "League of Legends",
+        'cs-2': "Counter Strike 2",
+        'dota-2': "Dota 2"
     };
 
     const formatDate = (dateString) => {

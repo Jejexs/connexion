@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const Profile = () => {
   const [profileInfo, setProfileInfo] = useState(null);
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +41,12 @@ const Profile = () => {
     fetchProfile();
   }, [navigate]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
+
   if (!profileInfo) {
     return <div className="text-center">Chargement du profil...</div>;
   }
@@ -51,6 +60,9 @@ const Profile = () => {
         <p className="text-lg mb-2"><strong>Jeu favori:</strong> {profileInfo.gameFav || 'Non spécifié'}</p>
         <p className="text-lg mb-2"><strong>Joueur favori:</strong> {profileInfo.playerFav || 'Non spécifié'}</p>
         <p className="text-lg"><strong>Équipe favorite:</strong> {profileInfo.teamFav || 'Non spécifié'}</p>
+        <button onClick={handleLogout} className="mt-4 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+          <FaSignOutAlt className="mr-2" /> Déconnexion
+        </button>
       </div>
     </div>
   );

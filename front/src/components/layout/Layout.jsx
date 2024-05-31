@@ -1,17 +1,13 @@
-// src/components/Layout.jsx
 import React from 'react';
 import Navbar from '../Navbar';
-// import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pb-20">
         {children}
       </main>
-      {/* Décommentez la ligne suivante si vous avez un composant Footer */}
-      {/* <Footer /> */}
+      <Navbar />
     </div>
   );
 };

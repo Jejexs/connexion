@@ -4,11 +4,9 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-
 const matchesRoute = require('./routes/api/matches');
 const teamsRouter = require('./routes/api/teams');
 const leagueOfLegendsRoutes = require('./routes/api/leagueoflegends');
-
 const cors = require('cors');
 require('./config/passport'); // Assurez-vous que ce chemin est correct
 require('dotenv').config();
@@ -22,7 +20,6 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Autorisez ces méthodes
 }));
 
-
 app.use(session({
   secret: 'B^k5R&4cR7X%eEzYHs2uB#n8@UdG*mP^FzC@L@rXu5e&3S!@yT2QzE#^4@R6kCz',
   resave: false,
@@ -33,12 +30,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api/matches', matchesRoute);
 app.use('/api/teams', teamsRouter);
 app.use('/api/leagueoflegends', leagueOfLegendsRoutes);
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
