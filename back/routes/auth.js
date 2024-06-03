@@ -57,7 +57,7 @@ router.post('/signup', [
     return res.status(400).json({ errors: errors.array() });
   }
   const { username, email, password, teamFav, playerFav, gameFav, isNewsletter } = req.body;
-  console.log(`Inscription de l'utilisateur : ${username}`);
+  console.log(`Inscription de l'utilisateur : ${username}, Email : ${email}`);
   try {
     // Vérification de l'existence de l'utilisateur
     const userExists = await User.findOne({ where: { email } });
@@ -67,6 +67,7 @@ router.post('/signup', [
     }
     // Hachage du mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('Mot de passe haché avec succès.');
     // Création du nouvel utilisateur
     const newUser = await User.create({
       username, email, password: hashedPassword, teamFav, playerFav, gameFav, isNewsletter: isNewsletter ? 1 : 0
