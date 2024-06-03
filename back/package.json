@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "migrate": "sequelize-cli db:migrate"
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "author": "jéjé",
   "license": "ISC",
@@ -26,5 +26,8 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.37.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
