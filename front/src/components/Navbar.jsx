@@ -21,37 +21,37 @@ const Navbar = () => {
 
   return (
     <div className="fixed inset-x-0 bottom-0 mb-5 mx-5 flex justify-center z-50">
-      <nav 
-        className="text-white h-20 rounded-full shadow-xl max-w-screen-md w-full border border-gray-200 border-opacity-25" 
+      <nav
+        className="text-white h-16 rounded-full shadow-xl max-w-screen-md w-full border border-gray-200 border-opacity-25"
         style={{
-            background: 'radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%), radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%), radial-gradient(circle at 100% 100%, #4f0c79, #000000)',
-            boxShadow: '0 0 15px 5px rgba(255, 255, 255, 0.5)'
+          background: 'radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%), radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%), radial-gradient(circle at 100% 100%, #4f0c79, #000000)',
+          boxShadow: '0 0 15px 5px rgba(255, 255, 255, 0.5)'
         }}
       >
-        <div className="flex justify-around items-center w-full h-full text-sm">
-          <Link 
-            to="/" 
+        <div className="flex justify-around items-center w-full h-full text-xs">
+          <Link
+            to="/"
             className={`flex flex-col items-center justify-center w-full h-full transition-transform duration-500 ease-in-out transform hover:scale-105 px-3 rounded-full ${isActive('/')} hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/50`}
           >
-            <FaHome className="w-6 h-6 mb-1" /> Accueil
+            <FaHome className="w-4 h-4 mb-1" /> Accueil
           </Link>
-          <Link 
-            to="/news" 
+          <Link
+            to="/news"
             className={`flex flex-col items-center justify-center w-full h-full transition-transform duration-500 ease-in-out transform hover:scale-105 px-3 rounded-full ${isActive('/news')} hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/50`}
           >
-            <FaNewspaper className="w-6 h-6 mb-1" /> Actualité
+            <FaNewspaper className="w-4 h-4 mb-1" /> Actualité
           </Link>
-          <Link 
-            to="/calendar" 
+          <Link
+            to="/calendar"
             className={`flex flex-col items-center justify-center w-full h-full transition-transform duration-500 ease-in-out transform hover:scale-105 px-3 rounded-full ${isActive('/calendar')} hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/50`}
           >
-            <FaCalendarAlt className="w-6 h-6 mb-1" /> Calendrier
+            <FaCalendarAlt className="w-4 h-4 mb-1" /> Calendrier
           </Link>
-          <Link 
-            to="/profile" 
+          <Link
+            to="/profile"
             className={`flex flex-col items-center justify-center w-full h-full transition-transform duration-500 ease-in-out transform hover:scale-105 px-3 rounded-full ${isActive('/profile')} hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/50`}
           >
-            <FaUser className="w-6 h-6 mb-1" /> Compte
+            <FaUser className="w-4 h-4 mb-1" /> Compte
           </Link>
         </div>
       </nav>
