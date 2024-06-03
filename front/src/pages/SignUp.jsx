@@ -21,9 +21,9 @@ const SignUp = () => {
   const authContext = useContext(AuthContext);
 
   const jeux = [
-    { name: "Dota 2", slug: "dota-2", logo: '/assets/dota_logo.png' },
-    { name: "League of Legends", slug: "league-of-legends", logo: '/assets/lol_logo.png' },
-    { name: "Counter-Strike 2", slug: "cs-2", logo: '/assets/cs_logo.png' }
+    { name: "Dota 2", slug: "dota-2", logo: '../assets/dota_logo.png' },
+    { name: "League of Legends", slug: "league-of-legends", logo: '../assets/lol_logo.png' },
+    { name: "Counter-Strike 2", slug: "cs-2", logo: '../assets/cs_logo.png' }
   ];
 
 
