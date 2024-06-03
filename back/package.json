@@ -2,10 +2,10 @@
   "name": "back",
   "version": "1.0.0",
   "description": "back du projet",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set DEBUG=back:* & nodemon ./bin/www"
+    "start": "node server.js"
   },
   "author": "jéjé",
   "license": "ISC",
