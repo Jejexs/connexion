@@ -5,16 +5,11 @@ import MatchDisplay from '../components/MatchDisplay';
 import { useNavigate } from 'react-router-dom';
 
 const Calendar = () => {
-    // État pour stocker les matchs récupérés depuis l'API
     const [matches, setMatches] = useState([]);
-    // État pour stocker le jeu sélectionné par l'utilisateur
     const [selectedGame, setSelectedGame] = useState({ value: 'league-of-legends', label: 'League of Legends' });
-    // État pour stocker la date sélectionnée par l'utilisateur
     const [selectedDate, setSelectedDate] = useState(new Date());
-    // Hook de navigation pour rediriger l'utilisateur si nécessaire
     const navigate = useNavigate();
 
-    // Vérifier l'authentification de l'utilisateur lors du chargement du composant
     useEffect(() => {
         const checkAuth = () => {
             const token = localStorage.getItem('token');
@@ -26,19 +21,16 @@ const Calendar = () => {
         checkAuth();
     }, [navigate]);
 
-    // Appeler fetchMatches chaque fois que selectedGame ou selectedDate change
     useEffect(() => {
         fetchMatches(selectedGame.value, selectedDate);
     }, [selectedGame, selectedDate]);
 
-    // Fonction pour récupérer les matchs depuis l'API en fonction du jeu et de la date sélectionnés
     const fetchMatches = async (game, date) => {
         try {
-            // Vérifier si la date sélectionnée est dans le passé
             const isPast = date < new Date(new Date().setHours(0, 0, 0, 0));
             const apiEndpoint = isPast ? 'past' : 'upcoming';
-            const formattedDate = date.toISOString().split('T')[0]; // Formatage de la date en YYYY-MM-DD
-            const response = await axios.get(`http://localhost:3000/api/matches/${game}/${apiEndpoint}`, {
+            const formattedDate = date.toISOString().split('T')[0];
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/matches/${game}/${apiEndpoint}`, {
                 params: {
                     date: formattedDate,
                     limit: 100
@@ -50,29 +42,24 @@ const Calendar = () => {
         }
     };
 
-    // Jours de la semaine pour l'affichage
     const daysOfWeek = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 
-    // Fonction pour formater la date en jour et mois
     const formatDate = (date) => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         return `${day}.${month}`;
     };
 
-    // Gestionnaire de changement de jeu sélectionné
     const handleGameChange = (selectedOption) => {
         setSelectedGame(selectedOption);
     };
 
-    // Gestionnaire de changement de date sélectionnée
     const handleDateChange = (days) => {
         const newDate = new Date();
         newDate.setDate(newDate.getDate() + days);
         setSelectedDate(newDate);
     };
 
-    // Styles personnalisés pour le composant Select de react-select
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -90,8 +77,8 @@ const Calendar = () => {
         }),
         menu: (provided) => ({
             ...provided,
-            backgroundColor: '#1F2937', // Fond sombre pour une meilleure lisibilité
-            borderRadius: '0 0 10px 10px', // Coins inférieurs légèrement arrondis
+            backgroundColor: '#1F2937',
+            borderRadius: '0 0 10px 10px',
             marginTop: '0',
             padding: '0.5rem',
             transition: 'opacity 0.2s ease-in-out'
@@ -117,18 +104,17 @@ const Calendar = () => {
         }),
         option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected ? '#3B82F6' : 'transparent', // Fond bleu quand sélectionné
-            color: state.isSelected ? '#FFFFFF' : '#D1D5DB', // Texte blanc quand sélectionné
+            backgroundColor: state.isSelected ? '#3B82F6' : 'transparent',
+            color: state.isSelected ? '#FFFFFF' : '#D1D5DB',
             '&:hover': {
-                backgroundColor: '#3B82F6', // Fond bleu au survol
-                color: '#FFFFFF' // Texte blanc au survol
+                backgroundColor: '#3B82F6',
+                color: '#FFFFFF'
             },
             padding: '0.5rem 1rem',
-            borderRadius: '0' // Pas de coins arrondis pour les options
+            borderRadius: '0'
         }),
     };
 
-    // Options de jeu pour le composant Select
     const gameOptions = [
         { value: 'league-of-legends', label: 'League of Legends' },
         { value: 'cs-2', label: 'Counter-Strike 2' },
