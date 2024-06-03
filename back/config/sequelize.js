@@ -1,12 +1,13 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
   {
-    host: '193.203.168.1', // Adresse IP du serveur MySQL de Hostinger
-    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
     dialect: 'mysql',
     logging: console.log, // Pour activer les logs SQL
   }
