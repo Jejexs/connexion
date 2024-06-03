@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <div className="fixed inset-x-0 bottom-0 mb-5 mx-5 flex justify-center z-50">
       <nav
-        className="text-white h-24 rounded-full shadow-xl max-w-screen-md w-full border border-gray-200 border-opacity-25"
+        className="text-white h-20 rounded-full shadow-xl max-w-screen-md w-full border border-gray-200 border-opacity-25"
         style={{
           background: 'radial-gradient(circle at 100% 0%, #4f0c79, #000000, transparent 70%), radial-gradient(circle at 0% 100%, #000000, #350b50, transparent 70%), radial-gradient(circle at 100% 100%, #4f0c79, #000000)',
           boxShadow: '0 0 15px 5px rgba(255, 255, 255, 0.5)'
