@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import HomePage from './pages/HomePage';
 import Calendar from './pages/Calendar';
+import MatchDetails from './pages/MatchDetails';
 import Layout from './components/layout/Layout';
 import './index.css';
 
@@ -20,12 +21,13 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<HomePage />} />
-              <Route path="/calendar" element={<Calendar />} /> 
+              <Route path="/calendar" element={<Calendar />} />
               <Route path="/profile" element={
                 <PrivateRoute>
                   <Profile />
                 </PrivateRoute>
               } />
+              <Route path="/match/:id" element={<MatchDetails />} />
             </Routes>
           </Layout>
         </div>

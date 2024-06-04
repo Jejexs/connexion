@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * Composant pour afficher les informations d'un match.
  * @param {Object} match - L'objet match contenant les détails du match.
  * @param {boolean} isPast - Indique si le match est passé.
+ * @param {boolean} disableHover - Indique si les animations de hover doivent être désactivées.
+ * @param {boolean} disableLink - Indique si le lien vers les détails du match doit être désactivé.
  */
-function MatchDisplay({ match, isPast }) {
+function MatchDisplay({ match, isPast, disableHover, disableLink }) {
     /**
      * Formate une date pour n'afficher que l'heure.
      * @param {string} dateString - La date à formater.
@@ -34,8 +37,8 @@ function MatchDisplay({ match, isPast }) {
     const opponent1 = match.opponents[0]?.opponent || {};
     const opponent2 = match.opponents[1]?.opponent || {};
 
-    return (
-        <div className="relative rounded-xl shadow-md border border-white border-opacity-50 p-4 my-4 flex items-center justify-between bg-gradient-to-br from-white/30 to-black/50 transition-transform duration-300 transform hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]">
+    const content = (
+        <div className={`relative rounded-xl shadow-md border border-white border-opacity-50 p-4 my-4 flex items-center justify-between bg-gradient-to-br from-white/30 to-black/50 ${disableHover ? '' : 'transition-transform duration-300 transform hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(255,255,255,0.8)]'}`}>
             <div className="flex flex-col items-center w-1/4">
                 {displayImageOrPlaceholder(opponent1.image_url, opponent1.name)}
                 <span className="text-xs text-white truncate w-full text-center mt-1">{opponent1.name || 'Unknown'}</span>
@@ -59,6 +62,8 @@ function MatchDisplay({ match, isPast }) {
             </div>
         </div>
     );
+
+    return disableLink ? content : <Link to={`/match/${match.id}`}>{content}</Link>;
 }
 
 export default MatchDisplay;

@@ -48,6 +48,24 @@ router.get('/:game/:type', async (req, res) => {
         console.error(`Error fetching ${type} matches for ${game}:`, error);
         res.status(500).json({ message: 'Internal server error' });
     }
+
+    router.get('/:id', async (req, res) => {
+        const { id } = req.params;
+        try {
+            const response = await axios.get(`https://api.pandascore.co/matches/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${PANDASCORE_BEARER_TOKEN}`,
+                    Accept: 'application/json'
+                }
+            });
+            res.json(response.data);
+        } catch (error) {
+            console.error(`Error fetching match details:`, error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    });
+
+    
 });
 
 module.exports = router;
