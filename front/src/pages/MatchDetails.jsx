@@ -17,7 +17,7 @@ const MatchDetails = () => {
     useEffect(() => {
         const fetchMatchDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/matches/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/matches/${id}`);
                 setMatch(response.data);
             } catch (error) {
                 setError(error.message);
