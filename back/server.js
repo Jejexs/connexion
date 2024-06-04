@@ -12,9 +12,18 @@ require('dotenv').config();
 
 const app = express();
 
-// Configurez CORS pour accepter les requêtes de votre client React
+// Configurez CORS pour accepter les requêtes de votre client React déployé et en développement
+const allowedOrigins = ['http://localhost:5173', 'https://projet-e-score.vercel.app'];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Autorisez l'origine de votre client React
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Allow requests with no origin, like mobile apps or curl requests
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true, // Autorisez les credentials (cookies, sessions)
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Autorisez ces méthodes
 }));

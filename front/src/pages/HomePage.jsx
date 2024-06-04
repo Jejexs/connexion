@@ -15,9 +15,12 @@ function HomePage() {
         // Liste des jeux pour lesquels nous voulons récupérer les matchs
         const games = ['league-of-legends', 'cs-2', 'dota-2'];
 
+        // Vérifiez si la variable d'environnement est bien définie
+        console.log('Base URL:', import.meta.env.VITE_BASE_URL);
+
         // Fonction pour récupérer les matchs à venir pour un jeu spécifique
         const fetchMatches = (game) => {
-            return axios.get(`http://localhost:3000/api/matches/${game}/upcoming?limit=2`)
+            return axios.get(`${import.meta.env.VITE_BASE_URL}/api/matches/${game}/upcoming?limit=2`)
                 .then(response => ({ game, data: response.data }))
                 .catch(error => console.error(`Erreur lors de la récupération des matchs à venir pour ${game}:`, error));
         };

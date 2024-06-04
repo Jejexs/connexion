@@ -44,7 +44,7 @@ function MatchDisplay({ match, isPast, disableHover, disableLink }) {
                 <span className="text-xs text-white truncate w-full text-center mt-1">{opponent1.name || 'Unknown'}</span>
             </div>
             <div className="flex flex-col items-center w-1/2">
-                <div className="bg-[#cffafe] text-black text-xs rounded-full px-2 py-1 mb-1">
+                <div className="bg-[#cffafe] text-black text-xs rounded-full px-2 py-1 mb-1 max-w-28 truncate">
                     {match.league.name}
                 </div>
                 {isPast && (

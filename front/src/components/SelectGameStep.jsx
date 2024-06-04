@@ -1,11 +1,6 @@
 import React from 'react';
 import { FaHeart } from 'react-icons/fa';
 
-// Import des images de logos et de fond
-import bgCs from '../assets/bg-cs.png';
-import bgDota2 from '../assets/bg-dota2.png';
-import bgLol from '../assets/bg-lol.png';
-
 /**
  * Composant pour la sélection du jeu favori lors de l'inscription.
  * @param {Object} props - Les propriétés du composant.
@@ -21,9 +16,9 @@ const SelectGameStep = ({ gameFav, setGameFav, jeux, onNext, onPrevious, isFirst
     // Fonction pour obtenir l'image de fond en fonction du jeu sélectionné
     const getBackgroundImage = (slug) => {
         switch (slug) {
-            case 'cs-2': return bgCs;
-            case 'dota-2': return bgDota2;
-            case 'league-of-legends': return bgLol;
+            case 'cs-2': return '/assets/bg-cs.png';
+            case 'dota-2': return '/assets/bg-dota2.png';
+            case 'league-of-legends': return '/assets/bg-lol.png';
             default: return null;
         }
     };
