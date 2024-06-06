@@ -2,7 +2,7 @@
 
 ### 📄 Documentation Détailée
 
-Si vous souhaitez avoir la documentation détaillée du code, cliquez <a href="https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/" target="_blank">ici</a>.
+Si vous souhaitez avoir la documentation détaillée du code, cliquez [ici](https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/).
 
 ## Configuration Initiale
 
@@ -93,7 +93,7 @@ node server.js
 
 ### 📄 Detailed Documentation
 
-If you want to have detailed code documentation, click <a href="https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/" target="_blank">here</a>.
+If you want to have detailed code documentation, click [here](https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/).
 
 ## Initial Setup
 
