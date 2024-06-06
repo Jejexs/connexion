@@ -1,10 +1,14 @@
 # Français
 
+### 📄 Documentation Détailée
+
+Si vous souhaitez avoir la documentation détaillée du code, cliquez [ici](https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/).
+
 ## Configuration Initiale
 
 Prérequis : Ouvrir deux terminaux - un pour le serveur front (front-end) et un pour le serveur back (back-end).
 
-### Première Étape : Configuration du Serveur Front
+### 🖥️ Première Étape : Configuration du Serveur Front
 
 Accédez à votre terminal dans votre IDE et initialisez le serveur front :
 
@@ -14,7 +18,7 @@ npm install
 npm run dev
 ```
 
-### Deuxième Étape : Configuration du Serveur Backend
+### 🖥️ Deuxième Étape : Configuration du Serveur Backend
 
 Dans le deuxième terminal, initialisez le serveur backend :
 
@@ -27,7 +31,7 @@ node server.js
 Ces commandes vous permettront d'accéder à la page d'accueil. 
 Notez qu'il est nécessaire d'avoir une clé API de PandaScore, même si rien ne sera visible sans elle.
 
-### Configuration de la Clé API PandaScore
+### 🔑 Configuration de la Clé API PandaScore
 
 Pour utiliser les fonctionnalités liées à PandaScore dans ce projet, vous devez configurer votre clé API personnelle.
 
@@ -45,7 +49,7 @@ Sauvegardez le fichier .env. Cette clé sera automatiquement utilisée par le pr
 
 Assurez-vous de ne pas divulguer publiquement votre clé API pour éviter toute utilisation non autorisée.
 
-### Configuration Supplémentaire
+### ⚙️ Configuration Supplémentaire
 
 Pour explorer davantage le site, vous devez créer un compte. Pour cela, migrez votre base de données avec Sequelize :
 
@@ -87,11 +91,15 @@ node server.js
 
 # English
 
+### 📄 Detailed Documentation
+
+If you want to have detailed code documentation, click [here](https://escoredoc-jejexs-25b6d981a271ee17067c531b8d39dd3cb7c81cc7e4b131.gitlab.io/).
+
 ## Initial Setup
 
 Requirements: Open two terminals - one for the front-end server and one for the back-end server.
 
-### Step One: Front-end Server Setup
+### 🖥️ Step One: Front-end Server Setup
 
 Access your terminal in your IDE and initialize the front-end server:
 
@@ -101,7 +109,7 @@ npm install
 npm run dev
 ```
 
-### Step Two: Back-end Server Setup
+### 🖥️ Step Two: Back-end Server Setup
 
 In the second terminal, initialize the back-end server:
 
@@ -114,7 +122,7 @@ node server.js
 These commands will allow you to access the homepage. 
 Please note that a PandaScore API key is required, although nothing will be visible without it.
 
-### Configuring the PandaScore API Key
+### 🔑 Configuring the PandaScore API Key
 
 To use features related to PandaScore in this project, you need to set up your personal API key.
 
@@ -132,7 +140,7 @@ Save the .env file. This key will automatically be used by the project for all r
 
 Make sure not to publicly disclose your API key to prevent unauthorized use.
 
-### Additional Configuration
+### ⚙️ Additional Configuration
 
 To further explore the site, you need to create an account. To do this, migrate your database using Sequelize:
 
